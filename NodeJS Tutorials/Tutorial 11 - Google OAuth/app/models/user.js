@@ -12,6 +12,11 @@ var userSchema = mongoose.Schema({
 		email: String,
 		name: String
 	}
+	calendar: {
+		date:date,
+		starttime:time,
+		endtime:time
+	}
 });
 
 userSchema.methods.generateHash = function(password){
