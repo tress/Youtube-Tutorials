@@ -13,9 +13,9 @@ var userSchema = mongoose.Schema({
 		name: String
 	}
 	calendar: {
-		date:date,
-		starttime:time,
-		endtime:time
+		
+		starttime:dateTime,
+		endtime:dateTime
 	}
 });
 
