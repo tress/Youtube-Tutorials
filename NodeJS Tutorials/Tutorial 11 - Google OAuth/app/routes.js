@@ -29,8 +29,27 @@ module.exports = function(app, passport){
 		res.render('profile.html');
 	});
 	app.post('/profile', function(req, res) {
-               var start = req.body.startdatetime,
-               var end = req.body.enddatetime;
+               var event = {
+                'start': {
+                  'dateTime': request.body.startdate,
+                },
+                'end': {
+                  'dateTime': request.body.enddate
+                },
+              },
+        };
+
+       calendar.events.insert({
+        auth: auth,
+        calendarId: 'primary',
+        resource: event,
+        }, function(err, event) {
+          if (err) {
+          console.log('There was an error contacting the Calendar service: ' + err);
+              return;
+        }
+          console.log('Event created: %s', event.htmlLink);
+           });
     // ...
         });
 
