@@ -29,6 +29,18 @@ module.exports = function(app, passport){
         
 	app.get('/profile', isLoggedIn, function(req, res) {
         var html = '<form action="/profile" method="post">' +
+               'Enter your first name:' +
+               '<input type="text" name="firstName" placeholder="..." />' +
+               '<br>' +
+               'Enter your last name:' +
+               '<input type="text" name="lastName" placeholder="..." />' +
+               '<br>' +
+               'Enter your email:' +
+               '<input type="text" name="email" placeholder="..." />' +
+               '<br>' +
+               'Enter your phone:' +
+               '<input type="number" name="phone" placeholder="..." />' +
+               '<br>' +
                'Enter start date:' +
                '<input type="datetime-local" name="to" id="to" value="2014-12-08T15:43:00">' +
                '<br>' +
@@ -43,8 +55,8 @@ module.exports = function(app, passport){
         app.post('/profile',isLoggedIn, function(req, res){
         var event = {
              'status':'confirmed',
-              'summary': request.body.contact.firstName + ' ' + request.body.contact.lastName,
-              'description': request.body.contact.phone + '\n' + request.body.contact.details,
+              'summary': request.body.firstName + ' ' + request.body.lastName,
+              'description': request.body.phone,
               'organizer': {
                'email': googleUserId,
                 'self': true
