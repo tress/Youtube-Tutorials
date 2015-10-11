@@ -40,11 +40,45 @@ module.exports = function(app, passport){
        res.send(html);
         });
         app.post('/profile',isLoggedIn, function(req, res){
-        var start = req.body.to;
-        var end = req.body.from;
-        var html = 'starttime: ' + start + '.<br>' +
-                   'endtime: ' + end + '.<br>' +
-                   '<a href="/">Try again.</a>';
+        var event = {
+             'summary': 'Google I/O 2015',
+             'location': '800 Howard St., San Francisco, CA 94103',
+             'description': 'A chance to hear more about Google\'s developer products.',
+              'start': {
+              'dateTime': 'req.body.to',
+              'timeZone': 'America/Los_Angeles',
+              },
+              'end': {
+               'dateTime': 'req.body.from',
+               'timeZone': 'America/Los_Angeles',
+               },
+               'recurrence': [
+               'RRULE:FREQ=DAILY;COUNT=2'
+               ],
+               'attendees': [
+               {'email': 'lpage@example.com'},
+               {'email': 'sbrin@example.com'},
+               ],
+                'reminders': {
+                'useDefault': false,
+               'overrides': [
+               {'method': 'email', 'minutes': 24 * 60},
+               {'method': 'popup', 'minutes': 10},
+              ],
+       },
+    };
+
+       calendar.events.insert({
+       auth: auth,
+       calendarId: 'primary',
+        resource: event,
+       }, function(err, event) {
+          if (err) {
+          console.log('There was an error contacting the Calendar service: ' + err);
+          return;
+       }
+       console.log('Event created: %s', event.htmlLink);
+       });
         res.send(html);
         });
 
