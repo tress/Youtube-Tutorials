@@ -42,31 +42,33 @@ module.exports = function(app, passport){
         });
         app.post('/profile',isLoggedIn, function(req, res){
         var event = {
-             'summary': 'Google I/O 2015',
-             'location': '800 Howard St., San Francisco, CA 94103',
-             'description': 'A chance to hear more about Google\'s developer products.',
-              'start': {
-              'dateTime': 'req.body.to',
-              },
-              'end': {
-               'dateTime': 'req.body.from',
-      
-               },
-               'recurrence': [
-               'RRULE:FREQ=DAILY;COUNT=2'
-               ],
-               'attendees': [
-               {'email': 'lpage@example.com'},
-               {'email': 'sbrin@example.com'},
-               ],
-                'reminders': {
-                'useDefault': false,
-               'overrides': [
-               {'method': 'email', 'minutes': 24 * 60},
-               {'method': 'popup', 'minutes': 10},
-              ],
-       },
-    };
+             'status':'confirmed',
+              'summary': request.body.contact.firstName + ' ' + request.body.contact.lastName,
+              'description': request.body.contact.phone + '\n' + request.body.contact.details,
+              'organizer': {
+               'email': googleUserId,
+                'self': true
+                },
+                'start': {
+                 'dateTime': request.body.from,
+                },
+                'end': {
+                'dateTime': request.body.to
+                },
+                'attendees': [
+                {
+                'email': googleUserId,
+                'organizer': true,
+                'self': true,
+                'responseStatus': 'needsAction'
+                },
+        {
+        'email': request.body.email,
+        'organizer': false,
+        'responseStatus': 'needsAction'
+        }
+       ]
+     };
        var calendar = google.calendar('V3');
 
        calendar.events.insert({
