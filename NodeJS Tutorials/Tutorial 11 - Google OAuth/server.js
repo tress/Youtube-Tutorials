@@ -9,17 +9,11 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
 
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 require('./config/passport')(passport);
-app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
 
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -36,10 +30,14 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 app.set('view engine', 'ejs');
-app.set('view engine', 'html');
 
 
-
+// app.use('/', function(req, res){
+// 	res.send('Our First Express program!');
+// 	console.log(req.cookies);
+// 	console.log('================');
+// 	console.log(req.session);
+// });
 
 require('./app/routes.js')(app, passport);
 
