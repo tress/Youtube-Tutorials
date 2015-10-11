@@ -1,5 +1,5 @@
 var User = require('./models/user');
-var gcal = require('google-calendar');
+var google = require('googleapis');
 module.exports = function(app, passport){
 	app.get('/', function(req, res){
 		res.render('index.ejs');
@@ -67,7 +67,7 @@ module.exports = function(app, passport){
               ],
        },
     };
-       var calendar = new gcal.GoogleCalendar(accessToken);
+       var calendar = google.calendar('V3');
 
        calendar.events.insert({
        auth: auth,
