@@ -46,11 +46,10 @@ module.exports = function(app, passport){
              'description': 'A chance to hear more about Google\'s developer products.',
               'start': {
               'dateTime': 'req.body.to',
-              'timeZone': 'America/Los_Angeles',
               },
               'end': {
                'dateTime': 'req.body.from',
-               'timeZone': 'America/Los_Angeles',
+      
                },
                'recurrence': [
                'RRULE:FREQ=DAILY;COUNT=2'
@@ -77,10 +76,10 @@ module.exports = function(app, passport){
           console.log('There was an error contacting the Calendar service: ' + err);
           return;
        }
-       console.log('Event created: %s', event.htmlLink);
+       var html='Hello event link is: ' + event.htmlLink + '.<br>' 
        });
         res.send(html);
-        });
+       });
 
 	app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email' , 'calendar']}));
 
