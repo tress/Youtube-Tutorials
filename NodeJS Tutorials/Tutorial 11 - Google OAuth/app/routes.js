@@ -28,6 +28,11 @@ module.exports = function(app, passport){
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('profile.html');
 	});
+	app.post('/profile', function(req, res) {
+               var start = req.body.startdatetime,
+               var end = req.body.enddatetime;
+    // ...
+        });
 
 	
 
