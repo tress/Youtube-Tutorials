@@ -25,33 +25,28 @@ module.exports = function(app, passport){
 		failureFlash: true
 	}));
 
-        app.get('/profile', function(req, res){
-        // The form's action is '/' and its method is 'POST',
-        // so the `app.post('/', ...` route will receive the
-        // result of our form
-        var html = '<form action="/profile" method="post">' +
-                      'Enter your name:' +
-                      '<input type="text" name="userName" placeholder="..." />' +
-                      '<br>' +
-                      '<button type="submit">Submit</button>' +
-                   '</form>';
-               
-        res.send(html);
-        });
-
-// This route receives the posted form.
-// As explained above, usage of 'body-parser' means
-// that `req.body` will be filled in with the form elements
-        app.post('/profile', function(req, res){
-        var userName = req.body.userName;
-        var html = 'Hello: ' + userName + '.<br>' +
-             '<a href="/">Try again.</a>';
-        res.send(html);
-        });
-
         
-
-	
+	app.get('/profile', isLoggedIn, function(req, res) {
+        var html = '<form action="/profile" method="post">' +
+               'Enter start date:' +
+               '<input type="datetime-local" name="to" id="to" value="2014-12-08T15:43:00">' +
+               '<br>' +
+               ' enter end date:' +
+               '<input type="datetime-local" name="from" id="from" value="2014-12-08T15:43:00">' +
+               '<br>' +
+               '<button type="submit">Submit</button>' +
+            '</form>';
+               
+       res.send(html);
+        });
+        app.post('/profile',isLoggedIn, function(req, res){
+        var start = req.body.to;
+        var end = req.body.from;
+        var html = 'starttime: ' + start + '.<br>' +
+                   'endtime: ' + end + '.<br>' +
+                   '<a href="/">Try again.</a>';
+        res.send(html);
+        });
 
 	app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email' , 'calendar']}));
 
