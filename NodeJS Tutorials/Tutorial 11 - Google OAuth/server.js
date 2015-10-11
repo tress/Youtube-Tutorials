@@ -14,6 +14,8 @@ var flash = require('connect-flash');
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 require('./config/passport')(passport);
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
 app.use(morgan('dev'));
 app.use(cookieParser());
