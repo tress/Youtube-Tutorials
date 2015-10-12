@@ -1,7 +1,7 @@
 - app
     ------ models
     ---------- user.js  <!-- our user model -->
-    ------ routes.js    <!-- all the routes for our application -->
+    ------ routes.js    <!-- all the routes for our application and also contains htmlcode for page in which tutor enter his slot and also google calendar event insert code-->
     - config
     ------ auth.js      <!-- will hold  client secret keys for google (google) -->
     ------ database.js  <!-- will hold our database connection settings -->
