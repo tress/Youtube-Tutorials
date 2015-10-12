@@ -29,25 +29,16 @@ module.exports = function(app, passport){
         
 	app.get('/profile', isLoggedIn, function(req, res) {
         var html = '<form action="/profile" method="post">' +
-               'Enter your first name:' +
-               '<input type="text" name="firstName" placeholder="..." />' +
-               '<br>' +
-               'Enter your last name:' +
-               '<input type="text" name="lastName" placeholder="..." />' +
-               '<br>' +
                'Enter your email:' +
                '<input type="text" name="email" placeholder="..." />' +
                '<br>' +
-               'Enter your phone:' +
-               '<input type="number" name="phone" placeholder="..." />' +
-               '<br>' +
-               'Enter start date:' +
+               'Enter start dateTime:' +
                '<input type="datetime-local" name="to" id="to" value="2014-12-08T15:43:00">' +
                '<br>' +
-               ' enter end date:' +
+               ' enter end dateTime:' +
                '<input type="datetime-local" name="from" id="from" value="2014-12-08T15:43:00">' +
                '<br>' +
-               '<button type="submit">Submit</button>' +
+               '<button type="submit">create event</button>' +
             '</form>';
                
        res.send(html);
@@ -55,11 +46,9 @@ module.exports = function(app, passport){
         app.post('/profile',isLoggedIn, function(req, res){
         var event = {
              'status':'confirmed',
-              'summary': request.body.firstName + ' ' + request.body.lastName,
-              'description': request.body.phone,
               'organizer': {
                'email': googleUserId,
-                'self': true
+               'self': true
                 },
                 'start': {
                  'dateTime': request.body.from,
@@ -67,19 +56,8 @@ module.exports = function(app, passport){
                 'end': {
                 'dateTime': request.body.to
                 },
-                'attendees': [
-                {
-                'email': googleUserId,
-                'organizer': true,
-                'self': true,
-                'responseStatus': 'needsAction'
-                },
-        {
-        'email': request.body.email,
-        'organizer': false,
-        'responseStatus': 'needsAction'
-        }
-       ]
+                'transparency': 'public',
+                'visibility': 'transparent',
      };
        var calendar = google.calendar('V3');
 
