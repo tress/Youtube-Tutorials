@@ -75,6 +75,7 @@ module.exports = function(passport) {
 	    clientID: configAuth.googleAuth.clientID,
 	    clientSecret: configAuth.googleAuth.clientSecret,
 	    callbackURL: configAuth.googleAuth.callbackURL
+	    scope: ['profile', 'email','https://www.googleapis.com/auth/calendar'] 
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    	process.nextTick(function(){
