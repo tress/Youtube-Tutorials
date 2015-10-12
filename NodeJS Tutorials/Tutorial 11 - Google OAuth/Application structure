@@ -1,0 +1,14 @@
+- app
+    ------ models
+    ---------- user.js  <!-- our user model -->
+    ------ routes.js    <!-- all the routes for our application -->
+    - config
+    ------ auth.js      <!-- will hold  client secret keys for google (google) -->
+    ------ database.js  <!-- will hold our database connection settings -->
+    ------ passport.js  <!-- configuring the google and local strategies for passport -->
+    - views
+    ------ index.ejs    <!-- show our home page with login links -->
+    ------ login.ejs    <!-- show our login form -->
+    ------ signup.ejs   <!-- show our signup form -->
+    - package.json      <!-- handle our npm packages -->
+    - server.js         <!-- setup our application -->
