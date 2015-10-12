@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var userSchema = mongoose.Schema({
-	local: {
+	local: {                                              //to store local sign in information
 		username: String,
 		password: String
 	},
 	
-	google: {
+	google: {                                             //to store google sign in information
 		id: String,
 		token: String,
 		email: String,
