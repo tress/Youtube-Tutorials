@@ -47,7 +47,7 @@ module.exports = function(app, passport){
         var event = {
              'status':'confirmed',
               'organizer': {
-               'email': googleUserId,
+               'email': req.body.email,
                'self': true
                 },
                 'start': {
